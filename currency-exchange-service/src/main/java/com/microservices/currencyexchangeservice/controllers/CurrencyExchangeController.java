@@ -29,15 +29,19 @@ public class CurrencyExchangeController {
 
         logger.info("retrieveExchangeValue called with {} to {}", from, to);
 
-        String port = environment.getProperty("local.server.port");
-
         CurrencyExchange currencyExchange = currencyExchangeRepository.findByFromAndTo(from, to);
 
         if (currencyExchange == null) {
             throw new RuntimeException("Unable to Find Data from " + from + "  to " + to);
         }
 
-        currencyExchange.setEnvironment(port);
+        String port = environment.getProperty("local.server.port");
+
+        //CHANGE-KUBERNETES
+        String host = environment.getProperty("HOSTNAME");
+        String version = "v11";
+
+        currencyExchange.setEnvironment(port+ " " + version + " " + host);
 
         return currencyExchange;
     }

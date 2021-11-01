@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currency-conversion
+  labels:
+    app: currency-conversion
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: currency-conversion
+  template:
+    metadata:
+      labels:
+        app: currency-conversion
+    spec:
+      containers:
+      - name: currency-conversion
+        image: krstic8687/mmv1-currency-conversion-service:0.0.11-SNAPSHOT
+        ports:
+        - containerPort: 8100

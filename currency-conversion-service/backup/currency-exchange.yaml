@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currency-exchange
+  labels:
+    app: currency-exchange
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: currency-exchange
+  template:
+    metadata:
+      labels:
+        app: currency-exchange
+    spec:
+      containers:
+      - name: currency-exchange
+        image: krstic8687/mmv1-currency-exchange-service:0.0.11-SNAPSHOT
+        ports:
+        - containerPort: 8080
